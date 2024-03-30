@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "143773757816",
+    "project_id": "yandex-f347d",
+    "storage_bucket": "yandex-f347d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:143773757816:android:346e0aab089b00ee0b988d",
+        "android_client_info": {
+          "package_name": "com.example.yandex_location"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByEql9NvIHiDZFS7LwYCtICc8dO5FUY8M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
