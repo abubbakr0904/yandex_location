@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -95,11 +97,12 @@ textFieldDialog({
                   SizedBox(height: 50.h,),
                   GestureDetector(
                       onTap: (){
-                        PlaceModel placeModlll = PlaceModel(placeCategory: category, latLng: ltln, placeName: placeName, entrance: flat.text, flatNumber: etaj.text, orientAddress: orin.text, stage: "", icons: categoryIcon,);
+                        PlaceModel placeModlll = PlaceModel(placeCategory: category, placeName: placeName, entrance: flat.text, flatNumber: etaj.text, orientAddress: orin.text, stage: "", icons: categoryIcon,);
                         context.read<LocationsViewModel>().insertProducts(placeModlll, context);
-                        context.read<MapsViewModel>().addNewMarker(placeModlll);
+                        debugPrint("Adashmasam qoshildi firebase");
+                        context.read<MapsViewModel>().addNewMarker(placeModlll , ltln);
                         context.read<AddressesViewModel>().addNewAddress(placeModlll);
-                        // Navigator.pop(context);
+                        Navigator.pop(context);
                       },
                       child : Container(
                         height: 50.h,

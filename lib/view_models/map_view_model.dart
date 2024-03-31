@@ -60,9 +60,8 @@ class MapsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  addNewMarker(PlaceModel placeModel) async {
-    // markers = {};
-
+  addNewMarker(PlaceModel placeModel , LatLng lt) async {
+    markers = {};
     Uint8List? markerImage;
 
     switch (placeModel.placeCategory) {
@@ -95,12 +94,11 @@ class MapsViewModel extends ChangeNotifier {
 
     markers.add(
       Marker(
-        position: placeModel.latLng,
+        position: lt,
         infoWindow: InfoWindow(
           title: placeModel.placeName,
           snippet: placeModel.placeCategory,
         ),
-        //BitmapDescriptor.defaultMarker,
         icon: BitmapDescriptor.fromBytes(markerImage),
         markerId: MarkerId(DateTime.now().toString()),
       ),
@@ -122,7 +120,7 @@ class MapsViewModel extends ChangeNotifier {
 
   savePlace(PlaceModel placeModel) {
     myAddresses.add(placeModel);
-    addNewMarker(placeModel);
+    // addNewMarker(placeModel , LatLng(0, 0));
   }
 
   Future<void> getUserLocation() async {

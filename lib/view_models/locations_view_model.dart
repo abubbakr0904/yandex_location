@@ -18,18 +18,6 @@ class LocationsViewModel extends ChangeNotifier {
         event.docs.map((doc) => PlaceModel.fromJson(doc.data())).toList(),
   );
 
-  Future<void> getProductsByCategory(String categoryDocId) async {
-    _notify(true);
-    await FirebaseFirestore.instance
-        .collection("locations")
-        .where("category_id", isEqualTo: categoryDocId)
-        .get()
-        .then((snapshot) {
-      categoryProduct =
-          snapshot.docs.map((e) => PlaceModel.fromJson(e.data())).toList();
-    });
-    _notify(false);
-  }
 
   insertProducts(PlaceModel productModel, BuildContext context) async {
     try {
