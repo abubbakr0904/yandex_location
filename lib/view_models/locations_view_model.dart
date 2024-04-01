@@ -28,7 +28,7 @@ class LocationsViewModel extends ChangeNotifier {
 
       await FirebaseFirestore.instance
           .collection("locations")
-          .doc(cf.id)
+          . doc(cf.id)
           .update({"doc_id": cf.id});
 
       _notify(false);
@@ -37,6 +37,21 @@ class LocationsViewModel extends ChangeNotifier {
       debugPrint("xatoku");
     }
     notifyListeners();
+  }
+  updateProduct(PlaceModel productModel, BuildContext context) async {
+    try {
+      _notify(true);
+      await FirebaseFirestore.instance
+          .collection("locations")
+          .doc(productModel.id)
+          .update(productModel.toJsonForUpdate());
+      debugPrint("Update boldi");
+
+      _notify(false);
+    } on FirebaseException catch (error) {
+      if (!context.mounted) return;
+      debugPrint("Updateda Error");
+    }
   }
 
   deleteProduct(String docId, BuildContext context) async {

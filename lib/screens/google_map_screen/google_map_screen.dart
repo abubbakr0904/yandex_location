@@ -185,7 +185,6 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen> {
                       SizedBox(height: 15.h,),
                       GestureDetector(
                         onTap: (){
-                          print("AAAAAAAAAAAAAAA $category");
                           textFieldDialog(context: context, ltln:latLng, image: icon, placeName: viewModel.currentPlaceName , category: category);
                         },
                         child : Container(

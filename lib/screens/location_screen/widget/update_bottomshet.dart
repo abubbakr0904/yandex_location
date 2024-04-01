@@ -13,12 +13,9 @@ import 'package:yandex_location/view_models/locations_view_model.dart';
 import 'package:yandex_location/view_models/map_view_model.dart';
 import '../../../utils/images/app_images.dart';
 
-textFieldDialog({
+updateBottomShet({
   required BuildContext context,
-  required LatLng ltln,
-  required String image,
-  required String placeName,
-  required String category
+  required PlaceModel placeModel
 }) {
   final TextEditingController name = TextEditingController();
   final TextEditingController flat = TextEditingController();
@@ -28,7 +25,11 @@ textFieldDialog({
   String categoryIcon = "";
   int c = 0;
   _init(){
-    name.text = placeName;
+    name.text = placeModel.placeName;
+    // etaj.text = placeModel.stage;
+    // dom.text = placeModel.flatNumber;
+    orin.text = placeModel.orientAddress;
+    // flat.text = placeModel.entrance;
   }
   showModalBottomSheet(
     backgroundColor: Colors.white,
@@ -36,10 +37,9 @@ textFieldDialog({
     builder: (context) {
       _init();
       return StatefulBuilder(builder: (context, setState) {
-        debugPrint(category);
         return Padding(
           padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom
+              bottom: MediaQuery.of(context).viewInsets.bottom
           ),
           child: Container(
               padding: EdgeInsets.all(20.w),
@@ -62,18 +62,17 @@ textFieldDialog({
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(width: 80.w,
-                        child : TextField(
-                          keyboardType: TextInputType.number,
-                          controller: flat,
-                          decoration: const InputDecoration(
-                            hintText: "Entrance",
-                          ),
-                        )
+                            child : TextField(
+                              keyboardType: TextInputType.number,
+                              controller: flat,
+                              decoration: const InputDecoration(
+                                hintText: "Entrance",
+                              ),
+                            )
                         ),
                         SizedBox(width: 80.w,
                             child : TextField(
                               keyboardType: TextInputType.number,
-
                               controller: etaj,
                               decoration: const InputDecoration(
                                 hintText: "Floor",
@@ -95,26 +94,20 @@ textFieldDialog({
                     TextField(
                       controller: orin,
                       decoration: const InputDecoration(
-                        hintText: "Orientation"
+                          hintText: "Orientation"
                       ),
                     ),
                     SizedBox(height: 50.h,),
                     GestureDetector(
                         onTap: (){
-                          PlaceModel placeModlll = PlaceModel(placeCategory: category,
-                              placeName: placeName,
-                              entrance: flat.text,
-                              flatNumber: etaj.text,
-                              orientAddress: orin.text,
-                              stage: "",
-                              icons: categoryIcon,
-                              id: "",
-                              latLng: "${ltln.longitude},${ltln.latitude}"
+                          placeModel = placeModel.copyWith(
+                            entrance: flat.text,
+                            flatNumber: dom.text,
+                            stage: etaj.text,
+                            orientAddress: orin.text,
+                            placeName: name.text,
                           );
-                          context.read<LocationsViewModel>().insertProducts(placeModlll, context);
-                          context.read<MapsViewModel>().addNewMarker(placeModlll , ltln);
-                          context.read<AddressesViewModel>().addNewAddress(placeModlll);
-                          debugPrint("Bu icon : ${categoryIcon}");
+                          context.read<LocationsViewModel>().updateProduct(placeModel, context);
                           Navigator.pop(context);
                           Navigator.pop(context);
                         },
@@ -126,7 +119,7 @@ textFieldDialog({
                               color : Colors.yellow
                           ),
                           child: Center(
-                            child: Text("Save" , style: TextStyle(
+                            child: Text("Update" , style: TextStyle(
                                 color : Colors.black,
                                 fontFamily: AppImages.fontPoppins,
                                 fontWeight: FontWeight.w500,

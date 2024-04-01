@@ -34,16 +34,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     context.read<MapsViewModel>();
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text("Deafult"),
-      ),
       body: Center(
-        child: TextButton(
-          onPressed: () {},
-          child: Text("LoTTIE QO"),
-        ),
+        child: CircularProgressIndicator(),
       ),
     );
   }
